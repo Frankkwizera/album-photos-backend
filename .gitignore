@@ -1,0 +1,9 @@
+# Author: Frank Kwizera
+
+# Ignore virtual environment.
+venv
+.vscode
+
+# Ignore the cache files
+__pycache__
+*.pyc
