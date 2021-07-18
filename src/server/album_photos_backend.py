@@ -1,7 +1,7 @@
 __author__ = "Frank Kwizera"
 
 from typing import List, Dict, Union
-from flask import jsonify, Flask
+from flask import jsonify, Flask, redirect
 from flask.wrappers import Response
 from src.server.server_constants import ServerConstants
 from src.server_routes.server_routes import AlbumPhotosEndpoints, JsonPlaceHolderEndpoints
@@ -18,8 +18,20 @@ class AlbumPhotosBackend:
         Maps endpoints to related methods.
         """
         flask_app.add_url_rule(
+            AlbumPhotosEndpoints.ROOT,
+            endpoint="index", view_func=self.index, methods=['GET'])
+
+        flask_app.add_url_rule(
             AlbumPhotosEndpoints.GET_ALBUM_PHOTOS + "/<album_id>",
             endpoint="get_album_photos", view_func=self.get_album_photos, methods=['GET'])
+    
+    def index(self):
+        """
+        Serves as the initial entry point of the backend app, and redirects to the album photos
+        with album id one.
+        """
+        first_album_id: int = 1
+        return redirect(AlbumPhotosEndpoints.GET_ALBUM_PHOTOS + "/{}".format(first_album_id))
 
     def get_album_photos(self, album_id: str) -> List[Dict[str, Union[str, int]]]:
         """

@@ -6,4 +6,5 @@ class JsonPlaceHolderEndpoints:
 
 
 class AlbumPhotosEndpoints:
+    ROOT = "/"
     GET_ALBUM_PHOTOS = "/get/album/photos"
