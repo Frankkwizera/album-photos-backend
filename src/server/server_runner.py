@@ -3,12 +3,14 @@ __author__ = "Frank Kwizera"
 from flask import Flask
 from src.get_flask_app import get_flask_app
 from src.server.album_photos_backend import AlbumPhotosBackend
+from flask_cors import CORS
 
 
 class AlbumServerRunner:
     def __init__(self):
         self.debug: bool = True
         self.flask_app: Flask = get_flask_app()
+        CORS(self.flask_app)
 
     def attach_micro_servers(self):
         """

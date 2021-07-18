@@ -10,3 +10,4 @@ requests==2.26.0
 urllib3==1.26.6
 Werkzeug==2.0.1
 pytest==6.2.1
+Flask-Cors==3.0.10
