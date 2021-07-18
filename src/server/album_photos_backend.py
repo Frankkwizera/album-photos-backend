@@ -3,6 +3,7 @@ __author__ = "Frank Kwizera"
 from typing import List, Dict, Union
 from flask import jsonify, Flask
 from flask.wrappers import Response
+from src.server.server_constants import ServerConstants
 from src.server_routes.server_routes import AlbumPhotosEndpoints, JsonPlaceHolderEndpoints
 from src.get_flask_app import get_flask_app
 import requests
@@ -28,6 +29,12 @@ class AlbumPhotosBackend:
         Returns:
             - Jsonfied list of dictionaries containing title and thumbnailUrl.
         """
+        # Cast album_id to make sure its an integer.
+        try:
+            album_id: int = int(album_id)
+        except Exception:
+            return jsonify({ServerConstants.SERVER_ERROR_MESSAGE_KEY: ServerConstants.REQUIRED_ALBUM_ID}), 400
+
         json_place_holder_endpoint: str = JsonPlaceHolderEndpoints.ALBUM_PHOTOS.format(album_id)
         request_response: Response = requests.get(json_place_holder_endpoint)
         response_list: List[Dict[str, Union[str, int]]] = \
